@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mail" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b0c6056a-d186-45e8-b26a-c1fec08c7a85">
+	<property name="ireport.zoom" value="1.1000000000000025"/>
+	<property name="ireport.x" value="21"/>
+	<property name="ireport.y" value="231"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="adress1" class="java.lang.String"/>
+	<parameter name="adress2" class="java.lang.String"/>
+	<parameter name="attendance" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="476" y="16" width="50" height="50" uuid="8c3e73b9-2f32-4dcf-abbf-8fd09245a6f1"/>
+				<imageExpression><![CDATA["/home/juan/NetBeansProjects/mailsAnie/src/java/au/anie/controllers/logo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="497" splitType="Stretch">
+			<staticText>
+				<reportElement x="49" y="1" width="60" height="20" uuid="ce2a05ee-498b-4fb6-a7a0-b1bd5f6f9d12"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="109" y="1" width="417" height="20" uuid="83eade94-280b-488d-9071-59f5725b2716"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="49" y="21" width="60" height="20" uuid="af68e287-b92d-4a94-b76f-9f54d7f9975a"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="109" y="21" width="417" height="20" uuid="1fc2247c-be2b-4e86-be96-3704bfc8c569"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="49" y="41" width="60" height="20" uuid="2ba52461-1cd5-4d55-a6f2-7f9a0475e826"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Adress:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="109" y="41" width="417" height="20" uuid="7cfe554e-82cf-43bf-bf78-a1a746e5ea0e"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{adress1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="61" width="417" height="20" uuid="bba022d4-591e-4e9d-ac80-7914cf79e2c5"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{adress2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="49" y="101" width="477" height="20" uuid="7c9e7cec-68c6-411f-9bea-a882f7c5fa40"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unsatisfactory attendance warning]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="49" y="140" width="477" height="20" uuid="c581fe94-f0b0-41d7-991b-76653c09d05f"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dear " + $P{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="176" width="477" height="72" uuid="2379e85a-35ad-42a0-aea2-73545938db6e"/>
+				<textElement textAlignment="Justified">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Thank you for studying with Australian National Institute of Education (ANIE).  During the enrolment and orientation programme, you were informed of the student visa condition relating to course attendance. All international students are expected to maintain 40 hours of class attendance on fortnightly basis."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="248" width="477" height="39" uuid="125fac00-ac78-4be8-9358-4a1e870da5b9"/>
+				<textElement textAlignment="Justified">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["You have attended " + $P{attendance} + "% of the class hours in last fortnight, whereas you are expected to maintain at least 80%."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="287" width="477" height="72" uuid="3ec04c06-1589-4c42-93d0-991d9be11c76"/>
+				<textElement textAlignment="Justified">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa."]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="49" y="369" width="120" height="42" uuid="c12c677f-b221-40da-b88d-9636acf19676"/>
+				<imageExpression><![CDATA["/home/juan/NetBeansProjects/mailsAnie/src/java/au/anie/controllers/signature.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="49" y="411" width="477" height="20" uuid="aa4ca687-c240-4896-989c-99534bfb610b"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Letter sent by]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="431" width="477" height="20" uuid="b6ccbe49-82d7-46e5-b349-2eec08cee030"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Student Support Manager]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="451" width="477" height="20" uuid="341ae028-b7c0-48b7-9dfd-8355dfee3b0a"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Australian National Institute of Education (ANIE)]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="49" y="7" width="477" height="20" uuid="7c07a394-738a-425b-a17b-63aa631fcd6d"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Skills International Pty Ltd trading as Australian National Institute of Education]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="27" width="477" height="20" uuid="80a4badf-e8f9-4fcc-bf09-075aaeb6592c"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[RTO: 41160 | CRICOS: 03682M]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
