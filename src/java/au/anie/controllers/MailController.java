@@ -87,13 +87,28 @@ public class MailController {
                 params.put("date", formatter.formatCellValue(row.getCell(4)));
                 String toEmail = formatter.formatCellValue(row.getCell(5));
 
-                String path = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "mail.jasper";
-                JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
+                String jasper = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "mail.jasper";
+                JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(jasper);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
                 JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream("students.pdf"));
-                
+
                 String subject = "Warning letter attendance " + params.get("name");
-                String body = "";
+                String body = "Unsatisfactory attendance warning\n"
+                        + "\n"
+                        + "Dear " + params.get("name") + "\n"
+                        + "\n"
+                        + "Thank you for studying with Australian National Institute of Education (ANIE). During the enrolment and orientation programme, you were informed of the student visa condition relating to course attendance. All international students are expected to maintain 40 hours of class attendance on fortnightly basis.\n"
+                        + "\n"
+                        + "You have attended " + params.get("attendance") + " of the class hours in last fortnight, whereas you are expected to maintain at least 80%.\n"
+                        + "\n"
+                        + "You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa.\n"
+                        + "\n"
+                        + "<img src='cid:image_id'>\n"
+                        + "Letter sent by\n"
+                        + "\n"
+                        + "Student Support Manager\n"
+                        + "\n"
+                        + "Australian National Institute of Education (ANIE)";
 
                 sendAttachmentEmail(session, toEmail, subject, body, "students.pdf");
             }
@@ -114,22 +129,85 @@ public class MailController {
         msg.setSubject(subject, "UTF-8");
         msg.setSentDate(new Date());
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-
-        BodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setText(body);
+        String signature = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "signature.jpg";
 
         Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
 
-        messageBodyPart = new MimeBodyPart();
-        DataSource source = new FileDataSource(filename);
-        messageBodyPart.setDataHandler(new DataHandler(source));
-        messageBodyPart.setFileName(filename);
-        multipart.addBodyPart(messageBodyPart);
+        BodyPart bodyPartFile = new MimeBodyPart();
+        bodyPartFile.setDataHandler(new DataHandler(new FileDataSource(filename)));
+        bodyPartFile.setFileName(filename);
+        multipart.addBodyPart(bodyPartFile);
+        
+        BodyPart bodyPartImg = new MimeBodyPart();
+        bodyPartImg.setDataHandler(new DataHandler(new FileDataSource(signature)));
+        bodyPartImg.setFileName("signature.jpg");
+        bodyPartImg.setHeader("Content-ID", "image_id");
+        multipart.addBodyPart(bodyPartImg);
+        
+        BodyPart bodyPartText = new MimeBodyPart();
+        bodyPartText.setContent(body, "text/html");
+        multipart.addBodyPart(bodyPartText);
 
         msg.setContent(multipart);
 
         Transport.send(msg);
+    }
+
+    public static void sendImageEmail(Session session, String toEmail, String subject, String body) {
+        try {
+            MimeMessage msg = new MimeMessage(session);
+            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+            msg.addHeader("format", "flowed");
+            msg.addHeader("Content-Transfer-Encoding", "8bit");
+
+            msg.setFrom(new InternetAddress("no_reply@example.com", "NoReply-JD"));
+
+            msg.setReplyTo(InternetAddress.parse("no_reply@example.com", false));
+
+            msg.setSubject(subject, "UTF-8");
+
+            msg.setSentDate(new Date());
+
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
+
+            // Create the message body part
+            BodyPart messageBodyPart = new MimeBodyPart();
+
+            messageBodyPart.setText(body);
+
+            // Create a multipart message for attachment
+            Multipart multipart = new MimeMultipart();
+
+            // Set text message part
+            multipart.addBodyPart(messageBodyPart);
+
+            // Second part is image attachment
+            messageBodyPart = new MimeBodyPart();
+            String filename = "image.png";
+            DataSource source = new FileDataSource(filename);
+            messageBodyPart.setDataHandler(new DataHandler(source));
+            messageBodyPart.setFileName(filename);
+            //Trick is to add the content-id header here
+            messageBodyPart.setHeader("Content-ID", "image_id");
+            multipart.addBodyPart(messageBodyPart);
+
+            //third part for displaying image in the email body
+            messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setContent("<h1>Attached Image</h1>"
+                    + "<img src='cid:image_id'>", "text/html");
+            multipart.addBodyPart(messageBodyPart);
+
+            //Set the multipart message to the email message
+            msg.setContent(multipart);
+
+            // Send message
+            Transport.send(msg);
+            System.out.println("EMail Sent Successfully with image!!");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     public Part getUploadedFile() {
