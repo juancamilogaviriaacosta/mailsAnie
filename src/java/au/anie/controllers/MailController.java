@@ -3,24 +3,23 @@ package au.anie.controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
+import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -34,7 +33,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -53,6 +51,23 @@ public class MailController {
 
     public void print() {
         try {
+            String fromEmail = "myemailid@gmail.com";
+            String password = "mypassword";
+
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+
+            Authenticator auth = new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(fromEmail, password);
+                }
+            };
+            Session session = Session.getInstance(props, auth);
+
             File file = new File("/home/juan/Escritorio/students.xlsx");
             FileInputStream fis = new FileInputStream(file);
             Workbook workbook = file.getName().endsWith(".xls") ? new HSSFWorkbook(fis) : new XSSFWorkbook(fis);
@@ -70,20 +85,21 @@ public class MailController {
                 parametros.put("adress2", formatter.formatCellValue(row.createCell(2)));
                 parametros.put("attendance", formatter.formatCellValue(row.createCell(3)));
                 parametros.put("date", formatter.formatCellValue(row.createCell(4)));
-                String mail = formatter.formatCellValue(row.createCell(5));
+                String toEmail = formatter.formatCellValue(row.createCell(5));
 
                 String path = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "mail.jasper";
                 JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JREmptyDataSource());
                 JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream("/home/juan/Escritorio/students.pdf"));
 
+                sendAttachmentEmail(session, toEmail, "subject", "carreta", "/home/juan/Escritorio/students.pdf");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void sendAttachmentEmail(Session session, String toEmail, String subject, String body) throws MessagingException, UnsupportedEncodingException {
+    public void sendAttachmentEmail(Session session, String toEmail, String subject, String body, String filename) throws MessagingException, UnsupportedEncodingException {
 
         MimeMessage msg = new MimeMessage(session);
         msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
@@ -102,7 +118,6 @@ public class MailController {
         multipart.addBodyPart(messageBodyPart);
 
         messageBodyPart = new MimeBodyPart();
-        String filename = "abc.txt";
         DataSource source = new FileDataSource(filename);
         messageBodyPart.setDataHandler(new DataHandler(source));
         messageBodyPart.setFileName(filename);
