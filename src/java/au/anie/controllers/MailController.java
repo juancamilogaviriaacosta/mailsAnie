@@ -1,8 +1,8 @@
 package au.anie.controllers;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,6 +26,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.Part;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -47,12 +48,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 @ManagedBean(name = "mailController")
 public class MailController {
 
-    private String name;
+    private Part uploadedFile;
 
-    public void print() {
+    public void send() {
         try {
-            String fromEmail = "myemailid@gmail.com";
-            String password = "mypassword";
+            String fromEmail = "";
+            String password = "";
 
             Properties props = new Properties();
             props.put("mail.smtp.host", "smtp.gmail.com");
@@ -68,9 +69,8 @@ public class MailController {
             };
             Session session = Session.getInstance(props, auth);
 
-            File file = new File("/home/juan/Escritorio/students.xlsx");
-            FileInputStream fis = new FileInputStream(file);
-            Workbook workbook = file.getName().endsWith(".xls") ? new HSSFWorkbook(fis) : new XSSFWorkbook(fis);
+            InputStream fis = uploadedFile.getInputStream();
+            Workbook workbook = uploadedFile.getSubmittedFileName().endsWith(".xls") ? new HSSFWorkbook(fis) : new XSSFWorkbook(fis);
             DataFormatter formatter = new DataFormatter();
 
             Sheet sheet = workbook.getSheetAt(0);
@@ -79,21 +79,25 @@ public class MailController {
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
 
-                Map<String, Object> parametros = new HashMap<>();
-                parametros.put("name", formatter.formatCellValue(row.createCell(0)));
-                parametros.put("adress1", formatter.formatCellValue(row.createCell(1)));
-                parametros.put("adress2", formatter.formatCellValue(row.createCell(2)));
-                parametros.put("attendance", formatter.formatCellValue(row.createCell(3)));
-                parametros.put("date", formatter.formatCellValue(row.createCell(4)));
-                String toEmail = formatter.formatCellValue(row.createCell(5));
+                Map<String, Object> params = new HashMap<>();
+                params.put("name", formatter.formatCellValue(row.getCell(0)));
+                params.put("adress1", formatter.formatCellValue(row.getCell(1)));
+                params.put("adress2", formatter.formatCellValue(row.getCell(2)));
+                params.put("attendance", formatter.formatCellValue(row.getCell(3)));
+                params.put("date", formatter.formatCellValue(row.getCell(4)));
+                String toEmail = formatter.formatCellValue(row.getCell(5));
 
                 String path = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "mail.jasper";
                 JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
-                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JREmptyDataSource());
-                JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream("/home/juan/Escritorio/students.pdf"));
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+                JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream("students.pdf"));
+                
+                String subject = "Warning letter attendance " + params.get("name");
+                String body = "";
 
-                sendAttachmentEmail(session, toEmail, "subject", "carreta", "/home/juan/Escritorio/students.pdf");
+                sendAttachmentEmail(session, toEmail, subject, body, "students.pdf");
             }
+            fis.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,8 +109,8 @@ public class MailController {
         msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
         msg.addHeader("format", "flowed");
         msg.addHeader("Content-Transfer-Encoding", "8bit");
-        msg.setFrom(new InternetAddress("no_reply@example.com", "NoReply-JD"));
-        msg.setReplyTo(InternetAddress.parse("no_reply@example.com", false));
+        msg.setFrom(new InternetAddress("reception@anie.edu.au", "reception@anie.edu.au"));
+        msg.setReplyTo(InternetAddress.parse("reception@anie.edu.au", false));
         msg.setSubject(subject, "UTF-8");
         msg.setSentDate(new Date());
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
@@ -128,11 +132,11 @@ public class MailController {
         Transport.send(msg);
     }
 
-    public String getName() {
-        return name;
+    public Part getUploadedFile() {
+        return uploadedFile;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUploadedFile(Part uploadedFile) {
+        this.uploadedFile = uploadedFile;
     }
 }
