@@ -3,7 +3,9 @@
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="21"/>
 	<property name="ireport.y" value="231"/>
-	<parameter name="name" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+        <parameter name="signature" class="java.lang.String"/>
+        <parameter name="name" class="java.lang.String"/>
 	<parameter name="adress1" class="java.lang.String"/>
 	<parameter name="adress2" class="java.lang.String"/>
 	<parameter name="attendance" class="java.lang.String"/>
@@ -15,7 +17,7 @@
 		<band height="79" splitType="Stretch">
 			<image>
 				<reportElement x="476" y="16" width="50" height="50" uuid="8c3e73b9-2f32-4dcf-abbf-8fd09245a6f1"/>
-				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -107,7 +109,7 @@
 			</textField>
 			<image>
 				<reportElement x="49" y="369" width="120" height="42" uuid="c12c677f-b221-40da-b88d-9636acf19676"/>
-				<imageExpression><![CDATA["signature.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{signature}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="49" y="411" width="477" height="20" uuid="aa4ca687-c240-4896-989c-99534bfb610b"/>

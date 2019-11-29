@@ -54,6 +54,9 @@ public class MailController {
         try {
             String fromEmail = "";
             String password = "";
+            
+            String logo = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "logo.jpg";
+            String signature = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "signature.jpg";
 
             Properties props = new Properties();
             props.put("mail.smtp.host", "smtp.gmail.com");
@@ -80,6 +83,8 @@ public class MailController {
                 Row row = rowIterator.next();
 
                 Map<String, Object> params = new HashMap<>();
+                params.put("logo", logo);
+                params.put("signature", signature);
                 params.put("name", formatter.formatCellValue(row.getCell(0)));
                 params.put("adress1", formatter.formatCellValue(row.getCell(1)));
                 params.put("adress2", formatter.formatCellValue(row.getCell(2)));
@@ -99,7 +104,7 @@ public class MailController {
                         + "<br/>"
                         + "Thank you for studying with Australian National Institute of Education (ANIE). During the enrolment and orientation programme, you were informed of the student visa condition relating to course attendance. All international students are expected to maintain 40 hours of class attendance on fortnightly basis.<br/>"
                         + "<br/>"
-                        + "You have attended " + params.get("attendance") + " of the class hours in last fortnight, whereas you are expected to maintain at least 80%.<br/>"
+                        + "You have attended " + params.get("attendance") + "% of the class hours in last fortnight, whereas you are expected to maintain at least 80%.<br/>"
                         + "<br/>"
                         + "You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa.<br/>"
                         + "<br/>"
