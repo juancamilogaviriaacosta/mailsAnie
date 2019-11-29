@@ -15,7 +15,7 @@
 		<band height="79" splitType="Stretch">
 			<image>
 				<reportElement x="476" y="16" width="50" height="50" uuid="8c3e73b9-2f32-4dcf-abbf-8fd09245a6f1"/>
-				<imageExpression><![CDATA["/home/juan/NetBeansProjects/mailsAnie/src/java/au/anie/controllers/logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -107,7 +107,7 @@
 			</textField>
 			<image>
 				<reportElement x="49" y="369" width="120" height="42" uuid="c12c677f-b221-40da-b88d-9636acf19676"/>
-				<imageExpression><![CDATA["/home/juan/NetBeansProjects/mailsAnie/src/java/au/anie/controllers/signature.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["signature.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="49" y="411" width="477" height="20" uuid="aa4ca687-c240-4896-989c-99534bfb610b"/>

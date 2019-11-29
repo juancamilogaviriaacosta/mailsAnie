@@ -93,22 +93,23 @@ public class MailController {
                 JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream("students.pdf"));
 
                 String subject = "Warning letter attendance " + params.get("name");
-                String body = "Unsatisfactory attendance warning\n"
-                        + "\n"
-                        + "Dear " + params.get("name") + "\n"
-                        + "\n"
-                        + "Thank you for studying with Australian National Institute of Education (ANIE). During the enrolment and orientation programme, you were informed of the student visa condition relating to course attendance. All international students are expected to maintain 40 hours of class attendance on fortnightly basis.\n"
-                        + "\n"
-                        + "You have attended " + params.get("attendance") + " of the class hours in last fortnight, whereas you are expected to maintain at least 80%.\n"
-                        + "\n"
-                        + "You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa.\n"
-                        + "\n"
-                        + "<img src='cid:image_id'>\n"
-                        + "Letter sent by\n"
-                        + "\n"
-                        + "Student Support Manager\n"
-                        + "\n"
-                        + "Australian National Institute of Education (ANIE)";
+                String body = "<hr><br/>Unsatisfactory attendance warning<br/>"
+                        + "<br/>"
+                        + "Dear " + params.get("name") + "<br/>"
+                        + "<br/>"
+                        + "Thank you for studying with Australian National Institute of Education (ANIE). During the enrolment and orientation programme, you were informed of the student visa condition relating to course attendance. All international students are expected to maintain 40 hours of class attendance on fortnightly basis.<br/>"
+                        + "<br/>"
+                        + "You have attended " + params.get("attendance") + " of the class hours in last fortnight, whereas you are expected to maintain at least 80%.<br/>"
+                        + "<br/>"
+                        + "You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa.<br/>"
+                        + "<br/>"
+                        + "<img src=\"cid:image\" width=\"120\" height=\"42\"><br/>"
+                        + "Letter sent by<br/>"
+                        + "<br/>"
+                        + "Student Support Manager<br/>"
+                        + "<br/>"
+                        + "Australian National Institute of Education (ANIE)<br/>"
+                        + "<hr>";
 
                 sendAttachmentEmail(session, toEmail, subject, body, "students.pdf");
             }
@@ -132,21 +133,20 @@ public class MailController {
         String signature = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "signature.jpg";
 
         Multipart multipart = new MimeMultipart();
-
-        BodyPart bodyPartFile = new MimeBodyPart();
-        bodyPartFile.setDataHandler(new DataHandler(new FileDataSource(filename)));
-        bodyPartFile.setFileName(filename);
-        multipart.addBodyPart(bodyPartFile);
-        
-        BodyPart bodyPartImg = new MimeBodyPart();
-        bodyPartImg.setDataHandler(new DataHandler(new FileDataSource(signature)));
-        bodyPartImg.setFileName("signature.jpg");
-        bodyPartImg.setHeader("Content-ID", "image_id");
-        multipart.addBodyPart(bodyPartImg);
         
         BodyPart bodyPartText = new MimeBodyPart();
         bodyPartText.setContent(body, "text/html");
         multipart.addBodyPart(bodyPartText);
+        
+        BodyPart bodyPartImg = new MimeBodyPart();
+        bodyPartImg.setDataHandler(new DataHandler(new FileDataSource(signature)));
+        bodyPartImg.setHeader("Content-ID", "<image>");
+        multipart.addBodyPart(bodyPartImg);        
+        
+        BodyPart bodyPartFile = new MimeBodyPart();
+        bodyPartFile.setDataHandler(new DataHandler(new FileDataSource(filename)));
+        bodyPartFile.setFileName(filename);
+        multipart.addBodyPart(bodyPartFile);
 
         msg.setContent(multipart);
 
