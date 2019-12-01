@@ -54,7 +54,7 @@ public class MailController {
         try {
             String fromEmail = "";
             String password = "";
-            
+
             String logo = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "logo.jpg";
             String signature = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "signature.jpg";
 
@@ -98,7 +98,12 @@ public class MailController {
                 JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream("students.pdf"));
 
                 String subject = "Warning letter attendance " + params.get("name");
-                String body = "<hr><br/>Unsatisfactory attendance warning<br/>"
+                String body = "<hr><br/>"
+                        + "Date: " + params.get("date") + "<br/>"
+                        + "Name: " + params.get("name") + "<br/>"
+                        + "Adress: " + params.get("adress1") + "<br/>"
+                        + "&nbsp;&nbsp;&nbsp;&nbsp;" + params.get("adress2") + "<br/><br/>"
+                        + "Unsatisfactory attendance warning<br/>"
                         + "<br/>"
                         + "Dear " + params.get("name") + "<br/>"
                         + "<br/>"
@@ -138,16 +143,16 @@ public class MailController {
         String signature = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "signature.jpg";
 
         Multipart multipart = new MimeMultipart();
-        
+
         BodyPart bodyPartText = new MimeBodyPart();
         bodyPartText.setContent(body, "text/html");
         multipart.addBodyPart(bodyPartText);
-        
+
         BodyPart bodyPartImg = new MimeBodyPart();
         bodyPartImg.setDataHandler(new DataHandler(new FileDataSource(signature)));
         bodyPartImg.setHeader("Content-ID", "<image>");
-        multipart.addBodyPart(bodyPartImg);        
-        
+        multipart.addBodyPart(bodyPartImg);
+
         BodyPart bodyPartFile = new MimeBodyPart();
         bodyPartFile.setDataHandler(new DataHandler(new FileDataSource(filename)));
         bodyPartFile.setFileName(filename);
