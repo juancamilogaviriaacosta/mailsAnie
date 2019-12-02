@@ -2,7 +2,6 @@ package au.anie.controllers;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -12,8 +11,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.faces.bean.ManagedBean;
@@ -220,7 +217,7 @@ public class MailController {
 
         BodyPart bodyPartFile = new MimeBodyPart();
         bodyPartFile.setDataHandler(new DataHandler(new FileDataSource(filename)));
-        bodyPartFile.setFileName(filename);
+        bodyPartFile.setFileName(filename.substring(filename.lastIndexOf(File.separator) + 1));
         multipart.addBodyPart(bodyPartFile);
 
         msg.setContent(multipart);
