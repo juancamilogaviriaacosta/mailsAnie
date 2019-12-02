@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.faces.bean.ManagedBean;
@@ -52,11 +54,11 @@ public class MailController {
 
     private Part uploadedFile;
 
-    public void send() {
+    public void send() throws Exception {
+        InputStream fis = uploadedFile.getInputStream();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                InputStream fis = null;
                 try {
                     String logo = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "logo.jpg";
                     String signature = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "signature.jpg";
@@ -88,7 +90,6 @@ public class MailController {
                     }
                     pdftmp.mkdirs();
 
-                    fis = uploadedFile.getInputStream();
                     Workbook workbook = uploadedFile.getSubmittedFileName().endsWith(".xls") ? new HSSFWorkbook(fis) : new XSSFWorkbook(fis);
                     DataFormatter formatter = new DataFormatter();
 
@@ -115,12 +116,14 @@ public class MailController {
                         String jasper = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "mail.jasper";
                         JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(jasper);
                         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
-                        JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream(finalpdf));
+                        FileOutputStream fos = new FileOutputStream(finalpdf);
+                        JasperExportManager.exportReportToPdfStream(jasperPrint, fos);
+                        fos.close();
 
                         String subject = "Warning letter attendance " + params.get("name");
                         String body = "<hr><br/>"
                                 + "<p style=\"font-weight:bold;\">"
-                                + "Date: " + params.get("date") + "<br/><br/>"
+                                + "Date: " + params.get("date") + "<br/>"
                                 + "Name: " + params.get("name") + "<br/>"
                                 + "Adress: " + params.get("adress1") + "<br/>"
                                 + "&nbsp;&nbsp;&nbsp;" + params.get("adress2") + "<br/><br/><br/>"
@@ -180,14 +183,6 @@ public class MailController {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                } finally {
-                    try {
-                        if (fis != null) {
-                            fis.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         }).start();
