@@ -176,7 +176,7 @@ public class MailController {
                                 + "Disclaimer: This e-mail, it's content, and any files transmitted with it are intended solely for the addressee(s) and may be legally privileged and confidential.  If you are not the intended recipient, you must not use, disclose, distribute, copy, print or rely on this e-mail.  Please destroy it and contact the sender by e-mail return.  This e-mail has been prepared using information believed by the author to be reliable and accurate, but Skills International makes no warranty as to accuracy or completeness.  In particular, Skills International does not accept responsibility for changes made to this e-mail after it was sent.  Any opinions expressed in this document are those of the author and do not necessarily reflect the opinions of Skills International. Although Skills International has taken steps to ensure that this e-mail and attachments are free from any virus, we would advise that in keeping with good computing practice, the recipient should ensure they are actually virus free.\n"
                                 + "</p>";
 
-                        //sendAttachmentEmail(session, toEmail, subject, body, finalpdf);
+                        sendAttachmentEmail(session, toEmail, subject, body, finalpdf);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
