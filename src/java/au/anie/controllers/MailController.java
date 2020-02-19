@@ -104,7 +104,7 @@ public class MailController {
                         params.put("adress2", formatter.formatCellValue(row.getCell(2)));
                         params.put("attendance", formatter.formatCellValue(row.getCell(3)));
                         params.put("date", ddmmyyyy.format(row.getCell(4).getDateCellValue()));
-                        String toEmail = formatter.formatCellValue(row.getCell(5));
+                        String toEmail = formatter.formatCellValue(row.getCell(5)).trim();
 
                         File folder = new File(pdftmp.getAbsolutePath() + File.separator + UUID.randomUUID().toString());
                         folder.mkdirs();
