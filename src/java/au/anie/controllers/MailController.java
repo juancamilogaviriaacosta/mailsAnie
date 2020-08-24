@@ -51,7 +51,7 @@ public class MailController {
 
     private static final String FORTNIGHT = "fortnight";
     private static final String WEEKLY = "weekly";
-    private static final String FOUR_WEEKS = "four_weeks";
+    private static final String FOUR_WEEKS = "four weeks";
     private String[] types = {FORTNIGHT, WEEKLY};
     private String type;
     private Part uploadedFile;
