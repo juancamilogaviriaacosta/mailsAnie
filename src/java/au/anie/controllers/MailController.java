@@ -55,9 +55,13 @@ public class MailController {
     private String[] types = {FORTNIGHT, WEEKLY};
     private String type;
     private Part uploadedFile;
+    private String fromMail;
+    private String password;
 
     public void send() throws Exception {
         InputStream fis = uploadedFile.getInputStream();
+        String fromMail2 = this.fromMail;
+        String password2 = this.password;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -65,8 +69,8 @@ public class MailController {
                     String logo = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "logo.jpg";
                     String signature = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "signature.jpg";
 
-                    String fromEmail = "";
-                    String password = "";
+                    String fromEmail = fromMail2;
+                    String password = password2;
 
                     Properties props = new Properties();
                     //props.put("mail.smtp.host", "smtp.gmail.com");
@@ -270,5 +274,21 @@ public class MailController {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getFromMail() {
+        return fromMail;
+    }
+
+    public void setFromMail(String fromMail) {
+        this.fromMail = fromMail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
