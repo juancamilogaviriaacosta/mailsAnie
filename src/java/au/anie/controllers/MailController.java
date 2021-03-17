@@ -194,31 +194,19 @@ public class MailController {
                             System.out.println("INICIA INTENTO PARA CONTROLAR EL ERROR");
                             e1.printStackTrace();
                             
-                            try {
-                                System.out.println("CERRAR CONEXION");
-                                session.getTransport().close();
-                            } catch (Exception e) {
-                                System.out.println("FALLO EN CERRAR CONEXION");
-                                e.printStackTrace();
-                            }
+                            System.out.println("CERRAR CONEXION");
+                            session.getTransport().close();
                             
-                            try {
-                                System.out.println("ABRIR CONEXION");
-                                session = Session.getInstance(props, auth);
-                            } finally {
-                                System.out.println("FALLO EN ABRIR CONEXION");
-                            }
+                            System.out.println("ABRIR NUEVA CONEXION");
+                            session = Session.getInstance(props, auth);
                             
-                            try {
-                                System.out.println("REENVIO DE CORREO");
-                                sendAttachmentEmail(session, toEmail, subject, body, finalpdf);
-                                System.out.println("REENVIO EXITOSO: " + toEmail);
-                            } finally {
-                                System.out.println("FALLO EN REENVIO DE CORREO");
-                            }
+                            System.out.println("REENVIO DE CORREO");
+                            sendAttachmentEmail(session, toEmail, subject, body, finalpdf);
+                            System.out.println("REENVIO EXITOSO: " + toEmail);
                         }
                     }
                 } catch (Exception e) {
+                    System.out.println("FALLO DEFINITIVO");
                     e.printStackTrace();
                 }
             }
