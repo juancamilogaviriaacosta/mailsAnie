@@ -144,7 +144,7 @@ public class MailController {
                                 + "<br/>"
                                 + "In the last " + params.get("type") + " you attended less than the minimum of 80% required. You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa.<br/>"
                                 + "<br/>"
-                                + "<img src=\"cid:image\" width=\"120\" height=\"42\"><br/>"
+                                //+ "<img src=\"cid:image\" width=\"120\" height=\"42\"><br/>"
                                 + "Letter sent by<br/>"
                                 + "<br/>"
                                 + "Student Support Manager<br/>"
