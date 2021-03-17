@@ -49,17 +49,18 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 @ManagedBean(name = "mailController")
 public class MailController {
 
-    private static final String FORTNIGHT = "fortnight";
-    private static final String WEEKLY = "weekly";
-    private static final String FOUR_WEEKS = "four weeks";
-    private String[] types = {FORTNIGHT, WEEKLY};
+    private static final String TWOWEEKS = "two (2) weeks";
+    private static final String FOURWEEKS = "four (4) weeks";
+    private String[] types = {TWOWEEKS, FOURWEEKS};
     private String type;
     private Part uploadedFile;
+    private String smtpServer;
     private String fromMail;
     private String password;
 
     public void send() throws Exception {
         InputStream fis = uploadedFile.getInputStream();
+        String smtpServer2 = this.smtpServer;
         String fromMail2 = this.fromMail;
         String password2 = this.password;
         new Thread(new Runnable() {
@@ -73,8 +74,7 @@ public class MailController {
                     String password = password2;
 
                     Properties props = new Properties();
-                    //props.put("mail.smtp.host", "smtp.gmail.com");
-                    props.put("mail.smtp.host", "smtp.office365.com");
+                    props.put("mail.smtp.host", smtpServer2);
                     props.put("mail.smtp.port", "587");
                     props.put("mail.smtp.auth", "true");
                     props.put("mail.smtp.starttls.enable", "true");
@@ -113,9 +113,7 @@ public class MailController {
                         params.put("adress2", formatter.formatCellValue(row.getCell(2)));
                         params.put("attendance", formatter.formatCellValue(row.getCell(3)));
                         params.put("date", ddmmyyyy.format(row.getCell(4).getDateCellValue()));
-                        params.put("type1", (type.equals(FORTNIGHT) ? FORTNIGHT : WEEKLY));
-                        params.put("type2", (type.equals(FORTNIGHT) ? FORTNIGHT : FOUR_WEEKS));
-                        params.put("time", (type.equals(FORTNIGHT) ? "40" : "20"));
+                        params.put("type", (type.equals(TWOWEEKS) ? TWOWEEKS : FOURWEEKS));
 
                         String toEmail = formatter.formatCellValue(row.getCell(5)).trim();
 
@@ -140,11 +138,9 @@ public class MailController {
                                 + "Unsatisfactory attendance warning </p>"
                                 + "Dear " + params.get("name") + "<br/>"
                                 + "<br/>"
-                                + "Thank you for studying with Australian National Institute of Education (ANIE). During the enrolment and orientation programme, you were informed of the student visa condition relating to course attendance. All international students are expected to maintain " + params.get("time") + " hours of class attendance on " + params.get("type1") + " basis.<br/>"
+                                + "Thank you for studying with Australian National Institute of Education (ANIE). During the enrolment and orientation programme, you were informed of the student visa condition relating to course attendance. All international students are expected to attend 20 contact hours per week and maintain a minimum attendance rate of 80%.<br/>"
                                 + "<br/>"
-                                + "You have attended " + params.get("attendance") + "% of the class hours in last " + params.get("type2") + ", whereas you are expected to maintain at least 80%.<br/>"
-                                + "<br/>"
-                                + "You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa.<br/>"
+                                + "In the last " + params.get("type") + " you attended less than the minimum of 80% required. You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa.<br/>"
                                 + "<br/>"
                                 + "<img src=\"cid:image\" width=\"120\" height=\"42\"><br/>"
                                 + "Letter sent by<br/>"
@@ -218,10 +214,12 @@ public class MailController {
         bodyPartText.setContent(body, "text/html");
         multipart.addBodyPart(bodyPartText);
 
+        /*
         BodyPart bodyPartImg = new MimeBodyPart();
         bodyPartImg.setDataHandler(new DataHandler(new FileDataSource(signature)));
         bodyPartImg.setHeader("Content-ID", "<image>");
         multipart.addBodyPart(bodyPartImg);
+        */
 
         BodyPart bodyPartLogo = new MimeBodyPart();
         bodyPartLogo.setDataHandler(new DataHandler(new FileDataSource(logo)));
@@ -252,14 +250,6 @@ public class MailController {
         tmp.delete();
     }
 
-    public Part getUploadedFile() {
-        return uploadedFile;
-    }
-
-    public void setUploadedFile(Part uploadedFile) {
-        this.uploadedFile = uploadedFile;
-    }
-
     public String[] getTypes() {
         return types;
     }
@@ -274,6 +264,22 @@ public class MailController {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Part getUploadedFile() {
+        return uploadedFile;
+    }
+
+    public void setUploadedFile(Part uploadedFile) {
+        this.uploadedFile = uploadedFile;
+    }
+
+    public String getSmtpServer() {
+        return smtpServer;
+    }
+
+    public void setSmtpServer(String smtpServer) {
+        this.smtpServer = smtpServer;
     }
 
     public String getFromMail() {

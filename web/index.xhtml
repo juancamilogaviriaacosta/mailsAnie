@@ -10,8 +10,12 @@
         <h:form enctype="multipart/form-data"  prependId="false">
             <table border="0">
                 <tr>
+                    <td><h:outputText value="SMTP server: "></h:outputText></td>
+                    <td><h:inputText value="#{mailController.smtpServer}"/></td>
+                </tr>
+                <tr>
                     <td><h:outputText value="From mail: "></h:outputText></td>
-                    <td><h:outputText value="#{mailController.fromMail}"/></td>
+                    <td><h:inputText value="#{mailController.fromMail}"/></td>
                 </tr>
                 <tr>
                     <td><h:outputText value="Password: "></h:outputText></td>
