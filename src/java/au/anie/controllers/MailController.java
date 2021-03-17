@@ -78,6 +78,9 @@ public class MailController {
                     props.put("mail.smtp.port", "587");
                     props.put("mail.smtp.auth", "true");
                     props.put("mail.smtp.starttls.enable", "true");
+                    props.put("mail.smtp.connectiontimeout", 10000);
+                    props.put("mail.smtp.timeout", 10000);
+                    props.put("mail.smtp.writetimeout", 10000);
 
                     Authenticator auth = new Authenticator() {
                         @Override
@@ -120,7 +123,6 @@ public class MailController {
                         File folder = new File(pdftmp.getAbsolutePath() + File.separator + UUID.randomUUID().toString());
                         folder.mkdirs();
                         String finalpdf = folder.getAbsolutePath() + File.separator + "Attendance - " + yyyymmdd.format(row.getCell(4).getDateCellValue()) + ".pdf";
-                        System.out.println(finalpdf);
                         String jasper = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "mail.jasper";
                         JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(jasper);
                         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
@@ -185,7 +187,36 @@ public class MailController {
                                 + "Disclaimer: This e-mail, it's content, and any files transmitted with it are intended solely for the addressee(s) and may be legally privileged and confidential.  If you are not the intended recipient, you must not use, disclose, distribute, copy, print or rely on this e-mail.  Please destroy it and contact the sender by e-mail return.  This e-mail has been prepared using information believed by the author to be reliable and accurate, but Skills International makes no warranty as to accuracy or completeness.  In particular, Skills International does not accept responsibility for changes made to this e-mail after it was sent.  Any opinions expressed in this document are those of the author and do not necessarily reflect the opinions of Skills International. Although Skills International has taken steps to ensure that this e-mail and attachments are free from any virus, we would advise that in keeping with good computing practice, the recipient should ensure they are actually virus free.\n"
                                 + "</p>";
 
-                        sendAttachmentEmail(session, toEmail, subject, body, finalpdf);
+                        try {
+                            sendAttachmentEmail(session, toEmail, subject, body, finalpdf);
+                            System.out.println("ENVIO EXITOSO: " + toEmail);
+                        } catch (Exception e1) {
+                            System.out.println("INICIA INTENTO PARA CONTROLAR EL ERROR");
+                            e1.printStackTrace();
+                            
+                            try {
+                                System.out.println("CERRAR CONEXION");
+                                session.getTransport().close();
+                            } catch (Exception e) {
+                                System.out.println("FALLO EN CERRAR CONEXION");
+                                e.printStackTrace();
+                            }
+                            
+                            try {
+                                System.out.println("ABRIR CONEXION");
+                                session = Session.getInstance(props, auth);
+                            } finally {
+                                System.out.println("FALLO EN ABRIR CONEXION");
+                            }
+                            
+                            try {
+                                System.out.println("REENVIO DE CORREO");
+                                sendAttachmentEmail(session, toEmail, subject, body, finalpdf);
+                                System.out.println("REENVIO EXITOSO: " + toEmail);
+                            } finally {
+                                System.out.println("FALLO EN REENVIO DE CORREO");
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
