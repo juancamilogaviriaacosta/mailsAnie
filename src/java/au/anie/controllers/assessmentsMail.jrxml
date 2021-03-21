@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mail" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b0c6056a-d186-45e8-b26a-c1fec08c7a85">
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="201"/>
+	<property name="ireport.y" value="225"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<parameter name="signature" class="java.lang.String"/>
 	<parameter name="name" class="java.lang.String"/>
@@ -10,9 +10,7 @@
 	<parameter name="adress2" class="java.lang.String"/>
 	<parameter name="attendance" class="java.lang.String"/>
 	<parameter name="date" class="java.lang.String"/>
-	<parameter name="type1" class="java.lang.String"/>
-	<parameter name="type2" class="java.lang.String"/>
-	<parameter name="time" class="java.lang.String"/>
+	<parameter name="type" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -90,25 +88,18 @@
 				<textFieldExpression><![CDATA["Dear " + $P{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="49" y="176" width="477" height="72" uuid="2379e85a-35ad-42a0-aea2-73545938db6e"/>
+				<reportElement x="49" y="176" width="477" height="65" uuid="2379e85a-35ad-42a0-aea2-73545938db6e"/>
 				<textElement textAlignment="Justified">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Thank you for studying with Australian National Institute of Education (ANIE).  During the enrolment and orientation programme, you were informed of the student visa condition relating to course attendance. All international students are expected to maintain "  + $P{time} + " hours of class attendance on " + $P{type1} + " basis."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Thank you for studying with Australian National Institute of Education (ANIE). During the enrolment and orientation programme, you were informed of the student visa condition relating to course attendance. All international students are expected to attend 20 contact hours per week and maintain a minimum attendance rate of 80%."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="49" y="248" width="477" height="39" uuid="125fac00-ac78-4be8-9358-4a1e870da5b9"/>
+				<reportElement x="49" y="241" width="477" height="118" uuid="3ec04c06-1589-4c42-93d0-991d9be11c76"/>
 				<textElement textAlignment="Justified">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["You have attended " + $P{attendance} + "% of the class hours in last " + $P{type2} + ", whereas you are expected to maintain at least 80%."]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="49" y="287" width="477" height="72" uuid="3ec04c06-1589-4c42-93d0-991d9be11c76"/>
-				<textElement textAlignment="Justified">
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA["You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["In the last " + $P{type} + " you attended less than the minimum of 80% required. You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa."]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="49" y="369" width="120" height="42" uuid="c12c677f-b221-40da-b88d-9636acf19676"/>

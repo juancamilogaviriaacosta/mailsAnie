@@ -180,7 +180,7 @@ public class MailController {
                         File folder = new File(pdftmp.getAbsolutePath() + File.separator + UUID.randomUUID().toString());
                         folder.mkdirs();
                         String finalpdf = folder.getAbsolutePath() + File.separator + "Attendance - " + yyyymmdd.format(row.getCell(4).getDateCellValue()) + ".pdf";
-                        String jasper = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "mail.jasper";
+                        String jasper = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "attendanceMail.jasper";
                         JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(jasper);
                         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
                         FileOutputStream fos = new FileOutputStream(finalpdf);
@@ -357,7 +357,7 @@ public class MailController {
                                 File folder = new File(pdftmp.getAbsolutePath() + File.separator + UUID.randomUUID().toString());
                                 folder.mkdirs();
                                 String finalpdf = folder.getAbsolutePath() + File.separator + "Attendance - " + yyyymmdd.format(row.getCell(4).getDateCellValue()) + ".pdf";
-                                String jasper = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "mail.jasper";
+                                String jasper = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "assessmentsMail.jasper";
                                 JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(jasper);
                                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
                                 FileOutputStream fos = new FileOutputStream(finalpdf);
