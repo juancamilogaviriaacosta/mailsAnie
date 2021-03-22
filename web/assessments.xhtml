@@ -23,14 +23,6 @@
                     <td><h:inputText value="#{mailController.password}"/></td>
                 </tr>
                 <tr>
-                    <td><h:outputText value="Type: "></h:outputText></td>
-                    <td>
-                        <h:selectOneMenu value="#{mailController.type}">
-                            <f:selectItems value="#{mailController.types}"/>
-                        </h:selectOneMenu>
-                    </td>
-                </tr>
-                <tr>
                     <td><h:outputText value="Excel file: "></h:outputText></td>
                     <td><h:inputFile value="#{mailController.uploadedFile}"/></td>
                 </tr>
