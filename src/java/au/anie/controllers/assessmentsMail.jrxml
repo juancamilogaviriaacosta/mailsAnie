@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mail" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b0c6056a-d186-45e8-b26a-c1fec08c7a85">
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="225"/>
+	<property name="ireport.y" value="14"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<parameter name="signature" class="java.lang.String"/>
 	<parameter name="name" class="java.lang.String"/>
@@ -10,7 +10,7 @@
 	<parameter name="adress2" class="java.lang.String"/>
 	<parameter name="attendance" class="java.lang.String"/>
 	<parameter name="date" class="java.lang.String"/>
-	<parameter name="type" class="java.lang.String"/>
+	<parameter name="assessments" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -23,7 +23,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="497" splitType="Stretch">
+		<band height="340" splitType="Stretch">
 			<staticText>
 				<reportElement x="49" y="1" width="60" height="20" uuid="ce2a05ee-498b-4fb6-a7a0-b1bd5f6f9d12"/>
 				<textElement>
@@ -73,72 +73,86 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{adress2}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="49" y="101" width="477" height="20" uuid="7c9e7cec-68c6-411f-9bea-a882f7c5fa40"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="49" y="120" width="477" height="49" uuid="c581fe94-f0b0-41d7-991b-76653c09d05f"/>
+				<textElement textAlignment="Justified">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dear " + $P{name} + "\n\n" + "Your visa requires that you achieve satisfactory course progress in the course in which you are enrolled." + "\n\n" + "Your course progress has been deemed as unsatisfactory for the following reason/s:\n"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="70" y="184" width="456" height="15" uuid="76c59250-bd25-48e3-b5c6-13f236c6ec6c"/>
+				<textElement textAlignment="Justified">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{assessments}.replaceAll("<br/>", "\n")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="70" y="199" width="456" height="15" uuid="44374bab-7536-4522-800d-978408f758bc"/>
+				<textElement textAlignment="Justified">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["You have not participated as per the course timetable." + "\n\n" +"Your course progress is such that you will be unable to complete a course within the expected duration." + "\n\n" + "Yours attendance may also be considered to place you at risk of not achieving satisfactory course progress." + "\n\n"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="49" y="214" width="477" height="15" uuid="e080a185-5004-4f89-8c6f-bbce95a79a07"/>
+				<textElement textAlignment="Justified">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["You are now required to attend a meeting with your trainer & assessor and Director of Studies to discuss support that can be offered to you to help you achieve requirements. Please contact Student Support Manager, Mr. Sarath Vunnamatala as soon as possible to arrange this meeting." + "\n\n" + "Please be aware that if your course progress continues to be unsatisfactory, we will be obliged to report you to Department of Home Affairs (DHA), which may result in your student visa being cancelled."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="49" y="100" width="477" height="20" uuid="d5d1780a-a17e-4914-8921-9c521fd3b4bd"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Unsatisfactory attendance warning]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="49" y="140" width="477" height="20" uuid="c581fe94-f0b0-41d7-991b-76653c09d05f"/>
-				<textElement>
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Dear " + $P{name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["WARNING LETTER FOR UNSATISFACTORY COURSE PROGRESS"]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="49" y="176" width="477" height="65" uuid="2379e85a-35ad-42a0-aea2-73545938db6e"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="70" y="169" width="456" height="15" uuid="066d7f5b-30dc-4375-9f55-7482f9361522"/>
 				<textElement textAlignment="Justified">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Thank you for studying with Australian National Institute of Education (ANIE). During the enrolment and orientation programme, you were informed of the student visa condition relating to course attendance. All international students are expected to attend 20 contact hours per week and maintain a minimum attendance rate of 80%."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["You have either not submitted or are Not Yet Competent for the following assessments:\n"]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="49" y="241" width="477" height="118" uuid="3ec04c06-1589-4c42-93d0-991d9be11c76"/>
-				<textElement textAlignment="Justified">
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA["In the last " + $P{type} + " you attended less than the minimum of 80% required. You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa."]]></textFieldExpression>
-			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="148" splitType="Stretch">
 			<image>
-				<reportElement x="49" y="369" width="120" height="42" uuid="c12c677f-b221-40da-b88d-9636acf19676"/>
+				<reportElement x="49" y="0" width="120" height="42" uuid="c12c677f-b221-40da-b88d-9636acf19676"/>
 				<imageExpression><![CDATA[$P{signature}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="49" y="411" width="477" height="20" uuid="aa4ca687-c240-4896-989c-99534bfb610b"/>
+				<reportElement x="49" y="42" width="477" height="20" uuid="aa4ca687-c240-4896-989c-99534bfb610b"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Letter sent by]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="49" y="431" width="477" height="20" uuid="b6ccbe49-82d7-46e5-b349-2eec08cee030"/>
+				<reportElement x="49" y="62" width="477" height="20" uuid="b6ccbe49-82d7-46e5-b349-2eec08cee030"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Student Support Manager]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="49" y="451" width="477" height="20" uuid="341ae028-b7c0-48b7-9dfd-8355dfee3b0a"/>
+				<reportElement x="49" y="82" width="477" height="20" uuid="341ae028-b7c0-48b7-9dfd-8355dfee3b0a"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Australian National Institute of Education (ANIE)]]></text>
 			</staticText>
-		</band>
-	</detail>
-	<pageFooter>
-		<band height="54" splitType="Stretch">
 			<staticText>
-				<reportElement x="49" y="7" width="477" height="20" uuid="7c07a394-738a-425b-a17b-63aa631fcd6d"/>
+				<reportElement x="49" y="102" width="477" height="20" uuid="7c07a394-738a-425b-a17b-63aa631fcd6d"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Skills International Pty Ltd trading as Australian National Institute of Education]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="49" y="27" width="477" height="20" uuid="80a4badf-e8f9-4fcc-bf09-075aaeb6592c"/>
+				<reportElement x="49" y="122" width="477" height="20" uuid="80a4badf-e8f9-4fcc-bf09-075aaeb6592c"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="false" isItalic="true"/>
 				</textElement>

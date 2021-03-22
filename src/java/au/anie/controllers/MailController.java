@@ -341,7 +341,7 @@ public class MailController {
                                 if (j >= 6) {
                                     String cellValue = formatter.formatCellValue(cell);
                                     if (cellValue != null && cellValue.trim().equals("ABSENT")) {
-                                        params.put("assessments", params.get("assessments") + assessments.get(j) + "\n");
+                                        params.put("assessments", params.get("assessments") + assessments.get(j) + "<br/>");
                                     }
                                 }
                             }
@@ -380,7 +380,7 @@ public class MailController {
                                         + "<ul>"
                                         + "<li>You have either not submitted or are Not Yet Competent for the following assessments:"
                                         + "<p style=\"font-weight:bold;\">"
-                                        + params.get("assessments").toString().replaceAll("\n", "<br/>")
+                                        + params.get("assessments")
                                         + "</p></li>"
                                         + "<li>You have not participated as per the course timetable.</li>"
                                         + "<li>Your course progress is such that you will be unable to complete a course within the expected duration.</li>"
