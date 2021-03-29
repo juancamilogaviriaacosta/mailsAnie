@@ -39,6 +39,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -340,19 +341,16 @@ public class MailController {
                                 Cell cell = cellIterator.next();
                                 if (j >= 6) {
                                     String cellValue = formatter.formatCellValue(cell);
-                                    if (cellValue != null && cellValue.trim().equals("ABSENT")) {
-                                        params.put("assessments", params.get("assessments") + assessments.get(j) + "<br/>");
+                                    try {
+                                        if(cellValue != null && !cellValue.isEmpty() && !cellValue.trim().equals("ABSENT") && !cellValue.trim().equals("C") && DateUtil.isCellDateFormatted(cell)) {
+                                            params.put("assessments", params.get("assessments") + assessments.get(j) + " due on " + cellValue + "<br/>");
+                                        }
+                                    } catch (Exception e) {
                                     }
                                 }
                             }
 
                             if (!params.get("assessments").toString().isEmpty()) {
-                                for (Map.Entry<String, Object> entry : params.entrySet()) {
-                                    String key = entry.getKey();
-                                    Object value = entry.getValue();
-                                    System.out.println(key + ": " + value);
-                                }
-
                                 String toEmail = formatter.formatCellValue(row.getCell(5)).trim();
                                 File folder = new File(pdftmp.getAbsolutePath() + File.separator + UUID.randomUUID().toString());
                                 folder.mkdirs();
