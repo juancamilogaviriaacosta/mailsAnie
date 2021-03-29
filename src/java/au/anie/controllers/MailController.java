@@ -281,6 +281,7 @@ public class MailController {
             public void run() {
                 try {
                     String logo = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "logo.jpg";
+                    String logo2 = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "logo2.jpg";
                     String signature = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "signature.jpg";
 
                     String fromEmail = fromMail2;
@@ -328,7 +329,7 @@ public class MailController {
                         Row row = rowIterator.next();
                         if (i >= 2) {
                             Map<String, Object> params = new HashMap<>();
-                            params.put("logo", logo);
+                            params.put("logo", logo2);
                             params.put("signature", signature);
                             params.put("name", formatter.formatCellValue(row.getCell(1)));
                             params.put("adress1", formatter.formatCellValue(row.getCell(2)));
@@ -343,7 +344,7 @@ public class MailController {
                                     String cellValue = formatter.formatCellValue(cell);
                                     try {
                                         if(cellValue != null && !cellValue.isEmpty() && !cellValue.trim().equals("ABSENT") && !cellValue.trim().equals("C") && DateUtil.isCellDateFormatted(cell)) {
-                                            params.put("assessments", params.get("assessments") + assessments.get(j) + " due on " + cellValue + "<br/>");
+                                            params.put("assessments", params.get("assessments") + assessments.get(j) + " due on " + ddmmyyyy.format(cell.getDateCellValue()) + "<br/>");
                                         }
                                     } catch (Exception e) {
                                     }
@@ -365,12 +366,12 @@ public class MailController {
                                 String subject = "Warning letter course progress " + params.get("name");
                                 String body = "<hr><br/>"
                                         + "<p style=\"font-weight:bold;\">"
-                                        + "Date: " + params.get("date") + "<br/>"
-                                        + "Name: " + params.get("name") + "<br/>"
-                                        + "Adress: " + params.get("adress1") + "<br/>"
-                                        + "&nbsp;&nbsp;&nbsp;" + params.get("adress2") + "<br/><br/><br/>"
-                                        + "WARNING LETTER FOR UNSATISFACTORY COURSE PROGRESS </p>"
+                                        + params.get("date") + "<br/>"
+                                        + params.get("name") + "<br/>"
+                                        + params.get("adress1") + "<br/>"
+                                        + "&nbsp;&nbsp;&nbsp;" + params.get("adress2") + "<br/><br/><br/></p>"
                                         + "Dear " + params.get("name") + "<br/>"
+                                        + "<p style=\"font-weight:bold;\">WARNING LETTER FOR UNSATISFACTORY COURSE PROGRESS </p>"
                                         + "<br/>"
                                         + "Your visa requires that you achieve satisfactory course progress in the course in which you are enrolled.<br/>"
                                         + "<br/>"
@@ -384,7 +385,7 @@ public class MailController {
                                         + "<li>Your course progress is such that you will be unable to complete a course within the expected duration.</li>"
                                         + "<li>Yours attendance may also be considered to place you at risk of not achieving satisfactory course progress.</li>"
                                         + "</ul>"
-                                        + "You are now required to attend a meeting with your trainer & assessor and Director of Studies to discuss support that can be offered to you to help you achieve requirements. Please contact Student Support Manager, Mr. Sarath Vunnamatala as soon as possible to arrange this meeting.<br/>"
+                                        + "You are now required to attend a meeting with your trainer & assessor and Director of Studies to discuss support that can be offered to you to help you achieve requirements. Please contact Student Support Services as soon as possible to arrange this meeting.<br/>"
                                         + "<br/>"
                                         + "Please be aware that if your course progress continues to be unsatisfactory, we will be obliged to report you to Department of Home Affairs (DHA), which may result in your student visa being cancelled.<br/>"
                                         + "<br/>"
@@ -399,7 +400,7 @@ public class MailController {
                                         + "Yours sincerely,<br/>\n"
                                         + "Diana Gaviria<br/><br/>\n"
                                         + "\n"
-                                        + "Reception<br/><br/>\n"
+                                        + "Academic Operations Officer<br/><br/>\n"
                                         + "<img src=\"cid:logo\" width=\"50\" height=\"50\"><br/>"
                                         + "About us:\n"
                                         + "</p>\n"

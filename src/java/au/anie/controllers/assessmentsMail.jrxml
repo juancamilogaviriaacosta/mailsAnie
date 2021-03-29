@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mail" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b0c6056a-d186-45e8-b26a-c1fec08c7a85">
-	<property name="ireport.zoom" value="1.1000000000000025"/>
+	<property name="ireport.zoom" value="1.3310000000000033"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="116"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<parameter name="signature" class="java.lang.String"/>
 	<parameter name="name" class="java.lang.String"/>
@@ -15,148 +15,197 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="57" splitType="Stretch">
 			<image>
-				<reportElement x="476" y="16" width="50" height="50" uuid="8c3e73b9-2f32-4dcf-abbf-8fd09245a6f1"/>
+				<reportElement x="350" y="7" width="211" height="50" uuid="8c3e73b9-2f32-4dcf-abbf-8fd09245a6f1"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<detail>
-		<band height="234" splitType="Stretch">
-			<staticText>
-				<reportElement x="49" y="1" width="60" height="20" uuid="ce2a05ee-498b-4fb6-a7a0-b1bd5f6f9d12"/>
-				<textElement>
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Date:]]></text>
-			</staticText>
+		<band height="265" splitType="Stretch">
 			<textField>
-				<reportElement x="109" y="1" width="417" height="20" uuid="83eade94-280b-488d-9071-59f5725b2716"/>
+				<reportElement x="32" y="0" width="494" height="13" uuid="83eade94-280b-488d-9071-59f5725b2716"/>
 				<textElement>
-					<font size="11"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="49" y="21" width="60" height="20" uuid="af68e287-b92d-4a94-b76f-9f54d7f9975a"/>
-				<textElement>
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Name:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="109" y="21" width="417" height="20" uuid="1fc2247c-be2b-4e86-be96-3704bfc8c569"/>
+				<reportElement x="32" y="28" width="494" height="13" uuid="1fc2247c-be2b-4e86-be96-3704bfc8c569"/>
 				<textElement>
-					<font size="11"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="49" y="41" width="60" height="20" uuid="2ba52461-1cd5-4d55-a6f2-7f9a0475e826"/>
-				<textElement>
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Adress:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="109" y="41" width="417" height="20" uuid="7cfe554e-82cf-43bf-bf78-a1a746e5ea0e"/>
+				<reportElement x="32" y="41" width="494" height="13" uuid="7cfe554e-82cf-43bf-bf78-a1a746e5ea0e"/>
 				<textElement>
-					<font size="11"/>
+					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{adress1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="109" y="61" width="417" height="20" uuid="bba022d4-591e-4e9d-ac80-7914cf79e2c5"/>
+				<reportElement x="32" y="54" width="494" height="13" uuid="bba022d4-591e-4e9d-ac80-7914cf79e2c5"/>
 				<textElement>
-					<font size="11"/>
+					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{adress2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="49" y="120" width="477" height="49" uuid="c581fe94-f0b0-41d7-991b-76653c09d05f"/>
+				<reportElement positionType="Float" x="49" y="157" width="477" height="15" uuid="76c59250-bd25-48e3-b5c6-13f236c6ec6c"/>
 				<textElement textAlignment="Justified">
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Dear " + $P{name} + "\n\n" + "Your visa requires that you achieve satisfactory course progress in the course in which you are enrolled." + "\n\n" + "Your course progress has been deemed as unsatisfactory for the following reason/s:\n"]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="70" y="184" width="456" height="15" uuid="76c59250-bd25-48e3-b5c6-13f236c6ec6c"/>
-				<textElement textAlignment="Justified">
-					<font size="11" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{assessments}.replaceAll("<br/>", "\n")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="70" y="199" width="456" height="15" uuid="44374bab-7536-4522-800d-978408f758bc"/>
+				<reportElement positionType="Float" x="49" y="172" width="477" height="15" uuid="44374bab-7536-4522-800d-978408f758bc"/>
 				<textElement textAlignment="Justified">
-					<font size="11"/>
+					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA["You have not participated as per the course timetable." + "\n\n" +"Your course progress is such that you will be unable to complete a course within the expected duration." + "\n\n" + "Yours attendance may also be considered to place you at risk of not achieving satisfactory course progress." + "\n\n"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["•You have not participated as per the course timetable."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="49" y="214" width="477" height="15" uuid="e080a185-5004-4f89-8c6f-bbce95a79a07"/>
+				<reportElement positionType="Float" x="32" y="224" width="494" height="15" uuid="e080a185-5004-4f89-8c6f-bbce95a79a07"/>
 				<textElement textAlignment="Justified">
-					<font size="11"/>
+					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA["You are now required to attend a meeting with your trainer & assessor and Director of Studies to discuss support that can be offered to you to help you achieve requirements. Please contact Student Support Manager, Mr. Sarath Vunnamatala as soon as possible to arrange this meeting." + "\n\n" + "Please be aware that if your course progress continues to be unsatisfactory, we will be obliged to report you to Department of Home Affairs (DHA), which may result in your student visa being cancelled."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["You are now required to attend a meeting with your trainer & assessor and Director of Studies to discuss support that can be offered to you to help you achieve requirements. Please contact Student Support Services as soon as possible to arrange this meeting."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="49" y="100" width="477" height="20" uuid="d5d1780a-a17e-4914-8921-9c521fd3b4bd"/>
+				<reportElement positionType="Float" x="32" y="97" width="494" height="15" uuid="d5d1780a-a17e-4914-8921-9c521fd3b4bd"/>
 				<textElement>
-					<font size="11" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["WARNING LETTER FOR UNSATISFACTORY COURSE PROGRESS"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="70" y="169" width="456" height="15" uuid="066d7f5b-30dc-4375-9f55-7482f9361522"/>
+				<reportElement positionType="Float" x="49" y="142" width="477" height="15" uuid="066d7f5b-30dc-4375-9f55-7482f9361522"/>
 				<textElement textAlignment="Justified">
-					<font size="11"/>
+					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA["You have either not submitted or are Not Yet Competent for the following assessments:\n"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["•You have either not submitted or are Not Yet Competent for the following assessments:\n"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="82" width="494" height="15" uuid="bde4f323-af76-4641-a97a-70a01d4dadbf"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dear " + $P{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="112" width="494" height="15" uuid="ff6cf3fe-6876-497c-9d61-5b714d1cb496"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Your visa requires that you achieve satisfactory course progress in the course in which you are enrolled."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="127" width="494" height="15" uuid="fba2f4aa-1cdf-49f6-a0d2-d0d3138c4f5b"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Your course progress has been deemed as unsatisfactory for the following reason/s:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="49" y="187" width="477" height="15" uuid="c2655f46-2dee-42f9-8723-8255130e2711"/>
+				<textElement textAlignment="Justified">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["•Your course progress is such that you will be unable to complete a course within the expected duration."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="49" y="202" width="477" height="15" uuid="415ccd97-e4fd-47a1-8f7d-36897f9a7a49"/>
+				<textElement textAlignment="Justified">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["•Yours attendance may also be considered to place you at risk of not achieving satisfactory course progress."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="32" y="246" width="494" height="15" uuid="4b20c83a-3f3a-4271-9284-ce5ad305f22e"/>
+				<textElement textAlignment="Justified">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Please be aware that if your course progress continues to be unsatisfactory, we will be obliged to report you to Department of Home Affairs (DHA), which may result in your student visa being cancelled."]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="148" splitType="Stretch">
+		<band height="180" splitType="Stretch">
 			<image>
-				<reportElement x="49" y="0" width="120" height="42" uuid="c12c677f-b221-40da-b88d-9636acf19676"/>
+				<reportElement positionType="Float" x="32" y="15" width="120" height="42" uuid="c12c677f-b221-40da-b88d-9636acf19676"/>
 				<imageExpression><![CDATA[$P{signature}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="49" y="42" width="477" height="20" uuid="aa4ca687-c240-4896-989c-99534bfb610b"/>
+				<reportElement positionType="Float" x="32" y="0" width="494" height="15" uuid="aa4ca687-c240-4896-989c-99534bfb610b"/>
 				<textElement>
-					<font size="11" isBold="false"/>
+					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Letter sent by]]></text>
+				<text><![CDATA[Letter sent by:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="49" y="62" width="477" height="20" uuid="b6ccbe49-82d7-46e5-b349-2eec08cee030"/>
+				<reportElement positionType="Float" x="32" y="57" width="494" height="10" uuid="b6ccbe49-82d7-46e5-b349-2eec08cee030"/>
 				<textElement>
-					<font size="11" isBold="false"/>
+					<font size="7" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Student Support Manager]]></text>
+				<text><![CDATA[Sarath Chandh VUNNAMATLA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="49" y="82" width="477" height="20" uuid="341ae028-b7c0-48b7-9dfd-8355dfee3b0a"/>
+				<reportElement positionType="Float" x="32" y="77" width="494" height="18" uuid="341ae028-b7c0-48b7-9dfd-8355dfee3b0a"/>
 				<textElement>
-					<font size="11" isBold="false"/>
+					<font size="7" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Australian National Institute of Education (ANIE)]]></text>
+				<text><![CDATA[Australian National Institute of Education]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="49" y="102" width="477" height="20" uuid="7c07a394-738a-425b-a17b-63aa631fcd6d"/>
+				<reportElement positionType="Float" x="49" y="110" width="477" height="10" uuid="7c07a394-738a-425b-a17b-63aa631fcd6d"/>
 				<textElement textAlignment="Center">
-					<font size="11" isBold="false" isItalic="true"/>
+					<font size="7" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Skills International Pty Ltd trading as Australian National Institute of Education]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="49" y="122" width="477" height="20" uuid="80a4badf-e8f9-4fcc-bf09-075aaeb6592c"/>
+				<reportElement positionType="Float" x="49" y="120" width="477" height="10" uuid="80a4badf-e8f9-4fcc-bf09-075aaeb6592c"/>
 				<textElement textAlignment="Center">
-					<font size="11" isBold="false" isItalic="true"/>
+					<font size="7" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[RTO: 41160 | CRICOS: 03682M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="32" y="67" width="494" height="10" uuid="9ff755f6-9f44-48fb-b966-42740e1a5f99"/>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Student Support Manager]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="32" y="95" width="422" height="15" uuid="8c66902d-75c4-42ab-bbe8-b0c5a7c658c5"/>
+				<textElement>
+					<font size="7" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ANIE-MEMO-V2.0]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="454" y="95" width="72" height="15" uuid="8070860b-f556-4634-8285-bf386003f747"/>
+				<textElement>
+					<font size="7" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Page | 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="49" y="130" width="477" height="10" uuid="773a1db7-8dc0-45ea-9b21-d343a3d9c2e6"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Suite11, 197 Prospect Hwy, Seven Hills NSW 2147]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="49" y="140" width="477" height="10" uuid="ab0bee2b-15dd-4dda-95b1-509ce14d4d3b"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Phone: 1300 812 355; +61 2 9620 5501 | www.anie.edu.au | info@anie.edu.au]]></text>
 			</staticText>
 		</band>
 	</pageFooter>
