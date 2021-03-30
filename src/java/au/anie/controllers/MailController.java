@@ -321,7 +321,8 @@ public class MailController {
                     Iterator<Cell> assessmentscellIterator = assessmentsrow.cellIterator();
                     while (assessmentscellIterator.hasNext()) {
                         Cell cell = assessmentscellIterator.next();
-                        assessments.add(formatter.formatCellValue(cell));
+                        String cellValue = formatter.formatCellValue(cell);
+                        assessments.add(cellValue != null ? cellValue.replaceAll("\t", " ").trim() : "");
                     }
 
                     Iterator<Row> rowIterator = sheet.iterator();
