@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mail" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b0c6056a-d186-45e8-b26a-c1fec08c7a85">
 	<property name="ireport.zoom" value="1.3310000000000033"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="78"/>
+	<property name="ireport.y" value="104"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<parameter name="signature" class="java.lang.String"/>
 	<parameter name="name" class="java.lang.String"/>
@@ -23,7 +23,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="268" splitType="Stretch">
+		<band height="379" splitType="Stretch">
 			<textField>
 				<reportElement x="43" y="0" width="485" height="13" uuid="83eade94-280b-488d-9071-59f5725b2716"/>
 				<textElement textAlignment="Left">
@@ -129,72 +129,72 @@
 				</textElement>
 				<textFieldExpression><![CDATA["Please be aware that if your course progress continues to be unsatisfactory, we will be obliged to report you to Department of Home Affairs (DHA), which may result in your student visa being cancelled."]]></textFieldExpression>
 			</textField>
-		</band>
-	</detail>
-	<pageFooter>
-		<band height="158" splitType="Stretch">
-			<image>
-				<reportElement positionType="Float" x="43" y="16" width="120" height="42" uuid="c12c677f-b221-40da-b88d-9636acf19676"/>
-				<imageExpression><![CDATA[$P{signature}]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement positionType="Float" x="43" y="3" width="460" height="13" uuid="aa4ca687-c240-4896-989c-99534bfb610b"/>
+				<reportElement positionType="Float" x="43" y="283" width="485" height="13" uuid="aa4ca687-c240-4896-989c-99534bfb610b"/>
 				<textElement>
 					<font size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Letter sent by:]]></text>
 			</staticText>
+			<image>
+				<reportElement positionType="Float" x="43" y="296" width="120" height="42" uuid="c12c677f-b221-40da-b88d-9636acf19676"/>
+				<imageExpression><![CDATA[$P{signature}]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement positionType="Float" x="43" y="58" width="460" height="13" uuid="b6ccbe49-82d7-46e5-b349-2eec08cee030"/>
+				<reportElement positionType="Float" x="43" y="338" width="485" height="13" uuid="b6ccbe49-82d7-46e5-b349-2eec08cee030"/>
 				<textElement>
 					<font size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Sarath Chandh VUNNAMATLA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="43" y="84" width="460" height="13" uuid="341ae028-b7c0-48b7-9dfd-8355dfee3b0a"/>
-				<textElement>
-					<font size="6" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Australian National Institute of Education]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="Float" x="43" y="116" width="460" height="13" uuid="7c07a394-738a-425b-a17b-63aa631fcd6d"/>
-				<textElement textAlignment="Center">
-					<font size="5" isBold="false" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Skills International Pty Ltd trading as Australian National Institute of Education]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="Float" x="43" y="129" width="460" height="13" uuid="80a4badf-e8f9-4fcc-bf09-075aaeb6592c"/>
-				<textElement textAlignment="Center">
-					<font size="5" isBold="false" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[RTO: 41160 | CRICOS: 03682M]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="Float" x="43" y="71" width="460" height="13" uuid="9ff755f6-9f44-48fb-b966-42740e1a5f99"/>
+				<reportElement positionType="Float" x="43" y="351" width="485" height="13" uuid="9ff755f6-9f44-48fb-b966-42740e1a5f99"/>
 				<textElement>
 					<font size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Student Support Manager]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="43" y="103" width="411" height="13" uuid="8c66902d-75c4-42ab-bbe8-b0c5a7c658c5"/>
+				<reportElement positionType="Float" x="43" y="364" width="485" height="13" uuid="341ae028-b7c0-48b7-9dfd-8355dfee3b0a"/>
+				<textElement>
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Australian National Institute of Education]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="57" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="43" y="13" width="485" height="13" uuid="7c07a394-738a-425b-a17b-63aa631fcd6d"/>
+				<textElement textAlignment="Center">
+					<font size="5" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Skills International Pty Ltd trading as Australian National Institute of Education]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="43" y="26" width="485" height="13" uuid="80a4badf-e8f9-4fcc-bf09-075aaeb6592c"/>
+				<textElement textAlignment="Center">
+					<font size="5" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[RTO: 41160 | CRICOS: 03682M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="43" y="0" width="411" height="13" uuid="8c66902d-75c4-42ab-bbe8-b0c5a7c658c5"/>
 				<textElement>
 					<font size="5" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[ANIE-MEMO-V2.0]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="454" y="103" width="49" height="13" uuid="8070860b-f556-4634-8285-bf386003f747"/>
+				<reportElement positionType="Float" x="454" y="0" width="74" height="13" uuid="8070860b-f556-4634-8285-bf386003f747"/>
 				<textElement>
 					<font size="5" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Page | 1]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="43" y="142" width="460" height="13" uuid="ab0bee2b-15dd-4dda-95b1-509ce14d4d3b"/>
+				<reportElement positionType="Float" x="43" y="39" width="485" height="13" uuid="ab0bee2b-15dd-4dda-95b1-509ce14d4d3b"/>
 				<textElement textAlignment="Center">
 					<font size="5" isBold="false" isItalic="true"/>
 				</textElement>
