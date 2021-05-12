@@ -54,8 +54,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class MailController {
 
     private static final String TWOWEEKS = "two (2) weeks";
-    private static final String FOURWEEKS = "four (4) weeks";
-    private String[] types = {TWOWEEKS, FOURWEEKS};
+    private static final String FIVEWEEKS = "five (5) weeks";
+    private String[] types = {TWOWEEKS, FIVEWEEKS};
     private String type;
     private Part uploadedFile;
     private String smtpServer;
@@ -175,7 +175,7 @@ public class MailController {
                         params.put("adress2", formatter.formatCellValue(row.getCell(2)));
                         params.put("attendance", formatter.formatCellValue(row.getCell(3)));
                         params.put("date", ddmmyyyy.format(row.getCell(4).getDateCellValue()));
-                        params.put("type", (type.equals(TWOWEEKS) ? TWOWEEKS : FOURWEEKS));
+                        params.put("type", (type.equals(TWOWEEKS) ? TWOWEEKS : FIVEWEEKS));
 
                         String toEmail = formatter.formatCellValue(row.getCell(5)).trim();
                         File folder = new File(pdftmp.getAbsolutePath() + File.separator + UUID.randomUUID().toString());
@@ -247,7 +247,7 @@ public class MailController {
 
                         try {
                             sendAttachmentEmail(session, toEmail, subject, body, finalpdf);
-                            System.out.println("ENVIO EXITOSO: " + toEmail);
+                            System.out.println("ENVIO EXITOSO: " + toEmail + " " + finalpdf);
                         } catch (Exception e1) {
                             System.out.println("INICIA INTENTO PARA CONTROLAR EL ERROR");
                             e1.printStackTrace();
@@ -356,7 +356,7 @@ public class MailController {
                                 String toEmail = formatter.formatCellValue(row.getCell(5)).trim();
                                 File folder = new File(pdftmp.getAbsolutePath() + File.separator + UUID.randomUUID().toString());
                                 folder.mkdirs();
-                                String finalpdf = folder.getAbsolutePath() + File.separator + "Assessments - " + yyyymmdd.format(row.getCell(4).getDateCellValue()) + ".pdf";
+                                String finalpdf = folder.getAbsolutePath() + File.separator + "Course Progress - " + yyyymmdd.format(row.getCell(4).getDateCellValue()) + ".pdf";
                                 String jasper = new File(this.getClass().getResource("MailController.class").getPath()).getParent() + File.separator + "assessmentsMail.jasper";
                                 JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(jasper);
                                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
