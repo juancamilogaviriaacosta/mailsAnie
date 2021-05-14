@@ -344,8 +344,8 @@ public class MailController {
                                 if (j >= 6) {
                                     String cellValue = formatter.formatCellValue(cell);
                                     try {
-                                        if(cellValue != null && !cellValue.isEmpty() && !cellValue.trim().equals("ABSENT") && !cellValue.trim().equals("C") && DateUtil.isCellDateFormatted(cell)) {
-                                            params.put("assessments", params.get("assessments") + assessments.get(j) + " due on " + ddmmyyyy.format(cell.getDateCellValue()) + "<br/>");
+                                        if(cellValue != null && !cellValue.isEmpty() && cellValue.trim().equals("ABSENT")) {
+                                            params.put("assessments", params.get("assessments") + assessments.get(j) + "<br/>");
                                         }
                                     } catch (Exception e) {
                                     }
