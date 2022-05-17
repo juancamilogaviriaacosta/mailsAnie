@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mail" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b0c6056a-d186-45e8-b26a-c1fec08c7a85">
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="225"/>
+	<property name="ireport.y" value="68"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<parameter name="signature" class="java.lang.String"/>
 	<parameter name="name" class="java.lang.String"/>
@@ -117,7 +117,7 @@
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Student Support Manager]]></text>
+				<text><![CDATA[Academic Operations Officer]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="49" y="451" width="477" height="20" uuid="341ae028-b7c0-48b7-9dfd-8355dfee3b0a"/>

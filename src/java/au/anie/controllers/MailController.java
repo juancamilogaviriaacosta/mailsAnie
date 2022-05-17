@@ -39,7 +39,6 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -203,17 +202,17 @@ public class MailController {
                                 + "In the last " + params.get("type") + " you attended less than the minimum of 80% required. You are now requested to meet Director of Studies and discuss the reasons of your shortfall in attendance, so that it improves afterwards. We may offer you options so that you achieve the required attendance level. If you miss more than 80% of your attendance in two consecutive terms, ANIE will report you to Department of Education which may affect your student visa.<br/>"
                                 + "<br/>"
                                 //+ "<img src=\"cid:image\" width=\"120\" height=\"42\"><br/>"
-                                + "Letter sent by<br/>"
-                                + "<br/>"
-                                + "Student Support Manager<br/>"
-                                + "<br/>"
-                                + "Australian National Institute of Education (ANIE)<br/>"
+                                //+ "Letter sent by<br/>"
+                                //+ "<br/>"
+                                //+ "Academic Operations Officer<br/>"
+                                //+ "<br/>"
+                                //+ "Australian National Institute of Education (ANIE)<br/>"
                                 + "<hr><br/><br/>"
                                 + "<p style=\"color: #1F497D; font-weight:bold;\">\n"
                                 + "Yours sincerely,<br/>\n"
                                 + "Diana Gaviria<br/><br/>\n"
                                 + "\n"
-                                + "Reception<br/><br/>\n"
+                                + "Academic Operations Officer<br/><br/>\n"
                                 + "<img src=\"cid:logo\" width=\"50\" height=\"50\"><br/>"
                                 + "About us:\n"
                                 + "</p>\n"
@@ -391,11 +390,11 @@ public class MailController {
                                         + "Please be aware that if your course progress continues to be unsatisfactory, we will be obliged to report you to Department of Home Affairs (DHA), which may result in your student visa being cancelled.<br/>"
                                         + "<br/>"
                                         //+ "<img src=\"cid:image\" width=\"120\" height=\"42\"><br/>"
-                                        + "Letter sent by<br/>"
-                                        + "<br/>"
-                                        + "Student Support Manager<br/>"
-                                        + "<br/>"
-                                        + "Australian National Institute of Education (ANIE)<br/>"
+                                        //+ "Letter sent by<br/>"
+                                        //+ "<br/>"
+                                        //+ "Academic Operations Officer<br/>"
+                                        //+ "<br/>"
+                                        //+ "Australian National Institute of Education (ANIE)<br/>"
                                         + "<hr><br/><br/>"
                                         + "<p style=\"color: #1F497D; font-weight:bold;\">\n"
                                         + "Yours sincerely,<br/>\n"
